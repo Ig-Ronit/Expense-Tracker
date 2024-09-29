@@ -78,41 +78,50 @@
         </tr>
       </thead>
       <tbody id="expenseList">
-
+        
       </tbody>
+      <div id="totalExpense"></div>
     </table>
   </div>
   
 </body>
 
 <script>
+  const totalExpenseDisplay = document.getElementById('totalExpense');
   const expenseform = document.getElementById('expenseForm');
   const expenseList = document.getElementById('expenseList');
+
+  let totalExpense = 0;
 
   expenseform.addEventListener('submit',function(event){
     event.preventDefault();
 
     const description = document.getElementById('description').value
     const category = document.getElementById('category').value
-    const amount = document.getElementById('amount').value
+    const amount = parseInt(document.getElementById('amount').value);
 
-    if(document && category && ! isNaN(amount)){
+    if(description && category && ! isNaN(amount)){
       const newRow = document.createElement('tr')
 
       newRow.innerHTML = `<td>${description}</td>
       <td>${category}</td>
-      <td>${amount}</td>`;
+      <td>${amount.toFixed(2)}</td>`;
 
       expenseList.appendChild(newRow)
+
+      totalExpense += amount;
+      totalExpenseDisplay.innerHTML= ` Total Expense: ${totalExpense.toFixed(2)}`;
 
       document.getElementById('description').value=''
       document.getElementById('category').value=''
       document.getElementById('amount').value=''
+     
     }else{
       alert('Please fill out all fields with valid Data ')
     }
-
-
   })
+
+ 
+
 </script>
 </html>
